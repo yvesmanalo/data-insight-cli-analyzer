@@ -37,7 +37,7 @@ def ApplyDiscount(df):
   df["discounted_total"] = df["total_sales"] * (1 - df["discount_rate"])
   print(df.head())
 
-def GetColumnSum(df):
+def ShowAggregateData(df):
   print("\nEnter column name(s) to aggregate (e.g price, quantity):")
   print("Note: Add comma or space for multiple column names\n")
 
@@ -49,26 +49,23 @@ def GetColumnSum(df):
     TransformedUserInputColumns += UserInputColumns.split()
 
   print("\nAggregated Results:\n")
-  for col in TransformedUserInputColumns:
+
+  GetAggregateColumnsSum(df,*TransformedUserInputColumns)
+
+def CheckDataTypes(df):
+  print("\nData Type Checks:\n")
+  print(f"Type of dataset: {type(df)}")
+  for col in df.columns:
+    print(f"Type of '{col}' column: {type(df[col])}")
+
+def GetAggregateColumnsSum(df,*args):
+
+  for col in args:
     try:
-      sum = df[col].sum()
-      print(f"{col} sum: {sum}")
+      column_sum = df[col].sum()
+      print(f"{col} sum: {column_sum}")
     except KeyError:
       print(f"Column: {col} not in the current dataframe.")
-  
-def FilterData(df):
-  print("\nEnter category to filter:")
-  UserInputCategory = input("> ").title().strip()
-  if UserInputCategory in set(df["category"]):
-    print("Enter minimum price to filter:")
-    UserInputMinPrice = int(input("> "))
-    df_filtered_data = df[(df["category"] == UserInputCategory) & (df["price"] >= UserInputMinPrice)]
-    df_filtered_data_shape = df_filtered_data.shape
-    print("\nFiltered Results:\n")
-    print(f"Matching records: {df_filtered_data_shape[0]}\n")
-    print(df_filtered_data)
-  else:
-    print(f"Category: {UserInputCategory} not in the current list of distinct categories")
 
 
 

@@ -1,6 +1,7 @@
 import pandas as pd
 from utils.loader import FileLoader
-from utils.analyzer import ViewDataSetPreview, ViewDataSetInfo, BasicStats, ComputeTotalSales, ApplyDiscount, GetColumnSum, FilterData
+from utils.analyzer import ViewDataSetPreview, ViewDataSetInfo, BasicStats, ComputeTotalSales, ApplyDiscount, ShowAggregateData, CheckDataTypes
+from utils.filter import ShowFilteredData
 
 
 print('''
@@ -49,11 +50,14 @@ def MainMenu():
     ApplyDiscount(df)
     PromptReturnToMainMenu()
   if UserChoice == "6":
-    GetColumnSum(df)
+    ShowAggregateData(df)
     PromptReturnToMainMenu()
   if UserChoice == "7":
-    FilterData(df)
-    PromptReturnToMainMenu()            
+    ShowFilteredData(df)
+    PromptReturnToMainMenu()
+  if UserChoice == "8":
+    CheckDataTypes(df)
+    PromptReturnToMainMenu()               
   if UserChoice == "9":
     ExitApplication()
 
