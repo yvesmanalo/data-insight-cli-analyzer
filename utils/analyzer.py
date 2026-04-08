@@ -32,10 +32,13 @@ def ComputeTotalSales(df):
 
 def ApplyDiscount(df):
   print("\nApplying discounts...\n")
-  print("Discount Applied\n")
-  df["discount_rate"] = df["category"].apply(lambda x: 0.1 if x == "Electronics" else (0.05 if x == "Clothing" else 0 ))
-  df["discounted_total"] = df["total_sales"] * (1 - df["discount_rate"])
-  print(df.head())
+  try:
+    df["discount_rate"] = df["category"].apply(lambda x: 0.1 if x == "Electronics" else (0.05 if x == "Clothing" else 0 ))
+    df["discounted_total"] = df["total_sales"] * (1 - df["discount_rate"])
+    print("Discount Applied\n")
+    print(df.head())
+  except KeyError:
+    print("Column: 'total_sales' not yet computed. Compute total_sales first before applying discount.")
 
 def ShowAggregateData(df):
   print("\nEnter column name(s) to aggregate (e.g price, quantity):")
@@ -66,9 +69,3 @@ def GetAggregateColumnsSum(df,*args):
       print(f"{col} sum: {column_sum}")
     except KeyError:
       print(f"Column: {col} not in the current dataframe.")
-
-
-
-
-
-
